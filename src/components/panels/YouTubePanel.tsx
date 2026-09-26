@@ -12,7 +12,7 @@ export default function YouTubePanel() {
   const doodleY = useTransform(progress, [0.6, 0.9], ['30%', '-30%']);
 
   return (
-    <section className="min-w-[100vw] w-screen h-screen flex-shrink-0 relative overflow-hidden bg-white text-[#1a1a1a] flex items-center z-10">
+    <section id="youtube-panel" className="min-w-[100vw] w-screen h-screen flex-shrink-0 relative overflow-hidden bg-white text-[#1a1a1a] flex items-center z-10">
       
       {/* Halftone Comic Background for the WHOLE section (Optimized to SVG for extreme scroll performance) */}
       <div 

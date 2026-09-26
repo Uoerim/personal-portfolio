@@ -1,5 +1,6 @@
 import HorizontalScroll from "@/components/HorizontalScroll";
 import Navbar from "@/components/Navbar";
+import ThemeController from "@/components/ThemeController";
 import HeroPanel from "@/components/panels/HeroPanel";
 import AboutPanel from "@/components/panels/AboutPanel";
 import WorkPanel from "@/components/panels/WorkPanel";
@@ -11,7 +12,12 @@ export default function Home() {
   return (
     <HorizontalScroll
       panelCount={6}
-      overlay={<Navbar />}
+      overlay={
+        <>
+          <Navbar />
+          <ThemeController />
+        </>
+      }
     >
       <HeroPanel />
       <AboutPanel />

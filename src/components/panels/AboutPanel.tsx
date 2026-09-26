@@ -6,6 +6,7 @@ import { useScrollProgress } from '@/components/HorizontalScroll';
 export default function AboutPanel() {
   const progress = useScrollProgress();
   const bgNumberX = useTransform(progress, [0, 0.5], ['-20%', '20%']);
+  const bgNumberOpacity = useTransform(progress, [0.1, 0.3], [0.5, 0.05]);
   const textX = useTransform(progress, [0.1, 0.4], ['10%', '0%']);
   const textOpacity = useTransform(progress, [0.1, 0.3], [0, 1]);
 
@@ -14,7 +15,7 @@ export default function AboutPanel() {
       
       {/* Background Number */}
       <motion.div 
-        style={{ x: bgNumberX }}
+        style={{ x: bgNumberX, opacity: bgNumberOpacity }}
         className="absolute top-1/2 -translate-y-1/2 left-0 w-full flex justify-center items-center pointer-events-none select-none z-0"
       >
         <span 

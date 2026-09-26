@@ -43,8 +43,9 @@ export default function HorizontalScroll({ children, overlay, panelCount }: Prop
 
   const { scrollYProgress } = useScroll({ target: wrapRef })
 
-  // Spring‑smoothed transform for buttery motion
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 30, mass: 0.2 })
+  // Spring‑smoothed transform for ULTRA buttery motion
+  // Low stiffness + high damping + higher mass = silky inertia glide
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 40, mass: 0.8 })
   const x = useTransform(smoothProgress, [0, 1], [0, -dist])
 
   const h = dist > 0 && vh > 0 ? `${dist + vh}px` : '100vh'
@@ -53,7 +54,7 @@ export default function HorizontalScroll({ children, overlay, panelCount }: Prop
     <Ctx.Provider value={{ progress: smoothProgress, panelCount }}>
       {overlay}
       <div ref={wrapRef} className="relative" style={{ height: h }}>
-        <div className="sticky top-0 left-0 h-screen w-screen overflow-hidden">
+        <div className="sticky top-0 left-0 h-screen w-screen overflow-hidden" style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}>
           <motion.div
             ref={trackRef}
             style={{ x }}

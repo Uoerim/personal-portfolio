@@ -31,6 +31,7 @@ export default function Navbar() {
   }, [panelCount])
 
   const isYouTube = activePanel === 4;
+  const isDark = activePanel === 1 || activePanel === 3;
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function Navbar() {
               textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 4px 4px 0 #FBBF24',
               letterSpacing: '0.05em'
             } : {
-              color: '#1a1a1a',
+              color: isDark ? '#fff' : '#1a1a1a',
               letterSpacing: '-0.05em'
             }}
           >
@@ -64,7 +65,7 @@ export default function Navbar() {
                 <button
                   key={link.name}
                   onClick={() => handleNav(link.panel)}
-                  className="relative font-sans text-xs uppercase transition-all duration-300"
+                  className="relative font-sans text-xs uppercase transition-all duration-300 hover:text-white"
                   style={isYouTube ? {
                     color: isActive ? '#fff' : '#e5e7eb',
                     fontWeight: 900,
@@ -73,7 +74,7 @@ export default function Navbar() {
                       ? '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 0 #38bdf8' 
                       : '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                   } : {
-                    color: isActive ? '#1a1a1a' : '#9ca3af',
+                    color: isActive ? (isDark ? '#fff' : '#1a1a1a') : (isDark ? '#d4d4d8' : '#9ca3af'),
                     fontWeight: 600,
                     letterSpacing: '0.1em',
                   }}
@@ -82,9 +83,10 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="navbar-underline"
-                      className={`absolute left-0 right-0 bg-[#1a1a1a] ${
+                      className={`absolute left-0 right-0 ${
                         isYouTube ? '-bottom-3 h-[4px]' : '-bottom-2 h-[2px]'
                       }`}
+                      style={{ backgroundColor: isDark && !isYouTube ? '#ffffff' : '#1a1a1a' }}
                       initial={false}
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
@@ -118,9 +120,9 @@ export default function Navbar() {
               className="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none z-50"
               aria-label="Toggle Menu"
             >
-              <span className={`block w-6 h-0.5 bg-[#1a1a1a] transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block w-6 h-0.5 bg-[#1a1a1a] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`block w-6 h-0.5 bg-[#1a1a1a] transition-transform duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: isDark && !isYouTube ? '#ffffff' : '#1a1a1a' }} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`} style={{ backgroundColor: isDark && !isYouTube ? '#ffffff' : '#1a1a1a' }} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: isDark && !isYouTube ? '#ffffff' : '#1a1a1a' }} />
             </button>
           </div>
 
