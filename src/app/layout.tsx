@@ -14,7 +14,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} antialiased`}>
       <body className="bg-white text-[#1a1a1a]">
-        <div className="noise-overlay" aria-hidden="true" />
         {children}
       </body>
     </html>
