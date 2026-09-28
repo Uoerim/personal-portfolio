@@ -45,14 +45,15 @@ export default function Navbar() {
           
           <button
             onClick={() => handleNav(0)}
-            className="font-sans font-black text-2xl uppercase focus:outline-none transition-all duration-300"
+            className="font-sans font-black text-2xl uppercase focus:outline-none transition-all duration-300 cursor-pointer"
             style={isYouTube ? {
               color: '#fff',
               textShadow: '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000, 4px 4px 0 #FBBF24',
               letterSpacing: '0.05em'
             } : {
               color: isDark ? '#fff' : '#1a1a1a',
-              letterSpacing: '-0.05em'
+              letterSpacing: '-0.05em',
+              textShadow: 'none'
             }}
           >
             YOSIF IBRAHIM
@@ -71,7 +72,7 @@ export default function Navbar() {
                       : { scale: 1.1, y: -1, opacity: isActive ? 1 : 0.7 }
                   }
                   whileTap={{ scale: 0.95 }}
-                  className="relative font-sans text-xs uppercase transition-all duration-300"
+                  className="relative font-sans text-xs uppercase transition-all duration-300 cursor-pointer"
                   style={isYouTube ? {
                     color: isActive ? '#fff' : '#e5e7eb',
                     fontWeight: 900,
@@ -83,6 +84,7 @@ export default function Navbar() {
                     color: isActive ? (isDark ? '#fff' : '#1a1a1a') : (isDark ? '#d4d4d8' : '#9ca3af'),
                     fontWeight: 600,
                     letterSpacing: '0.1em',
+                    textShadow: 'none'
                   }}
                 >
                   {link.name}
@@ -114,7 +116,8 @@ export default function Navbar() {
                 } : {
                   color: '#6b7280',
                   fontWeight: 400,
-                  letterSpacing: '0.1em'
+                  letterSpacing: '0.1em',
+                  textShadow: 'none'
                 }}
               >
                 Available for work
@@ -123,7 +126,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none z-50"
+              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none z-50 cursor-pointer"
               aria-label="Toggle Menu"
             >
               <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: isDark && !isYouTube ? '#ffffff' : '#1a1a1a' }} />
@@ -154,7 +157,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => handleNav(link.panel)}
-                    className="font-sans font-black uppercase text-4xl tracking-tighter text-[#1a1a1a] hover:text-gray-400 transition-colors"
+                    className="font-sans font-black uppercase text-4xl tracking-tighter text-[#1a1a1a] hover:text-gray-400 transition-colors cursor-pointer"
                   >
                     {link.name}
                   </button>

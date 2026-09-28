@@ -13,7 +13,7 @@ export default function HeroSection() {
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const characterY = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
 
-  const slideUp = {
+  const slideUp: any = {
     hidden: { y: '100%', opacity: 0 },
     show: { y: '0%', opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
   };

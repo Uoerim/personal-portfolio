@@ -20,7 +20,7 @@ const techStack = [
   'Docker'
 ];
 
-const containerVariants = {
+const containerVariants: any = {
   hidden: {},
   visible: {
     transition: {
@@ -29,7 +29,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: any = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
