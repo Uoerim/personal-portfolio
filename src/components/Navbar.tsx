@@ -62,10 +62,16 @@ export default function Navbar() {
             {navLinks.map((link) => {
               const isActive = activePanel === link.panel;
               return (
-                <button
+                <motion.button
                   key={link.name}
                   onClick={() => handleNav(link.panel)}
-                  className="relative font-sans text-xs uppercase transition-all duration-300 hover:text-white"
+                  whileHover={
+                    isYouTube 
+                      ? { scale: 1.1, y: -2, textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 4px 4px 0 #FBBF24' }
+                      : { scale: 1.1, y: -1, opacity: isActive ? 1 : 0.7 }
+                  }
+                  whileTap={{ scale: 0.95 }}
+                  className="relative font-sans text-xs uppercase transition-all duration-300"
                   style={isYouTube ? {
                     color: isActive ? '#fff' : '#e5e7eb',
                     fontWeight: 900,
@@ -91,7 +97,7 @@ export default function Navbar() {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
-                </button>
+                </motion.button>
               )
             })}
           </nav>

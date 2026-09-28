@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
-import { motion, useTransform } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { useScrollProgress } from '@/components/HorizontalScroll';
 import Image from 'next/image';
 
@@ -13,8 +14,71 @@ export default function WorkPanel() {
   const card2X = useTransform(scrollProgress, [0.2, 0.8], [400, -500]);
   const card3X = useTransform(scrollProgress, [0.2, 0.8], [600, -700]);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 300, damping: 25, mass: 0.5 });
+  const smoothY = useSpring(mouseY, { stiffness: 300, damping: 25, mass: 0.5 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX + 24);
+      mouseY.set(e.clientY + 24);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  const projectDetails = [
+    {
+      title: "Shams",
+      category: "STUDENT HUB",
+      description: "A comprehensive university student hub. Features course management, automated academic schedule generation, and PDF transcript compilation."
+    },
+    {
+      title: "Raqameen",
+      category: "AGENCY PLATFORM",
+      description: "Custom software agency platform. High-performance, scalable full-stack architecture built to deliver custom digital products."
+    },
+    {
+      title: "RFID-Wallet",
+      category: "HARDWARE",
+      description: "A smart hardware emulator for digital access. Stores and mimics multiple low-frequency RFID cards in one sleek universal device."
+    }
+  ];
+
   return (
     <section className="min-w-[100vw] w-screen h-screen flex-shrink-0 relative overflow-hidden bg-white text-[#1a1a1a]">
+      
+      {/* Floating Cursor Tooltip rendered via Portal to escape overflow-hidden clipping */}
+      {mounted && typeof document !== 'undefined' ? createPortal(
+        <AnimatePresence>
+          {hoveredProject !== null && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.15 }}
+              style={{ x: smoothX, y: smoothY }}
+              className="fixed top-0 left-0 z-[9999] pointer-events-none w-[320px] bg-white border-[2px] border-black p-5 shadow-[8px_8px_0_rgba(0,0,0,1)] flex flex-col"
+            >
+              <div className="font-mono text-[10px] font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                {projectDetails[hoveredProject].category}
+              </div>
+              <h4 className="font-sans font-black text-xl uppercase tracking-tight text-black mb-2">
+                {projectDetails[hoveredProject].title}
+              </h4>
+              <p className="font-sans text-sm text-gray-800 leading-relaxed font-medium">
+                {projectDetails[hoveredProject].description}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      ) : null}
       
       {/* Architectural Grid Background */}
       <div 
@@ -61,6 +125,8 @@ export default function WorkPanel() {
         <div className="relative w-full max-w-7xl h-[80vh] pointer-events-auto">
           {/* Card 1 */}
           <motion.div
+            onMouseEnter={() => setHoveredProject(0)}
+            onMouseLeave={() => setHoveredProject(null)}
             style={{ x: card1X, y: '-10%', willChange: 'transform', transform: 'translateZ(0)' }}
             className="absolute top-[10%] left-[10%] w-[400px] flex flex-col group cursor-pointer z-10 bg-white border border-gray-300 p-4 hover:border-gray-900 transition-colors duration-500 shadow-sm hover:shadow-xl"
           >
@@ -71,23 +137,22 @@ export default function WorkPanel() {
             <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gray-500" />
 
             <div className="w-full h-[450px] relative overflow-hidden border border-gray-200 mb-4 bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full text-gray-200" preserveAspectRatio="none">
-                <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1" />
-                <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1" />
-              </svg>
-              <span className="font-mono text-xs text-gray-400 z-10 bg-white px-2 border border-gray-200">FIG 1.0</span>
+              <img src="/projects/shams.jpg" alt="Shams UI" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+              
             </div>
             <div className="flex justify-between items-end">
               <div>
-                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">Project Alpha</h3>
-                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">Frontend / WebGL</p>
+                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">Shams</h3>
+                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">Next.js / Moodle API</p>
               </div>
-              <span className="font-mono text-[10px] text-gray-400">SCALE 1:1</span>
+              
             </div>
           </motion.div>
 
           {/* Card 2 */}
           <motion.div
+            onMouseEnter={() => setHoveredProject(1)}
+            onMouseLeave={() => setHoveredProject(null)}
             style={{ x: card2X, y: '0%', willChange: 'transform', transform: 'translateZ(0)' }}
             className="absolute top-[15%] left-[45%] w-[350px] flex flex-col group cursor-pointer z-20 bg-white border border-gray-300 p-4 hover:border-gray-900 transition-colors duration-500 shadow-sm hover:shadow-xl"
           >
@@ -98,23 +163,21 @@ export default function WorkPanel() {
             <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gray-500" />
 
             <div className="w-full h-[350px] relative overflow-hidden border border-gray-200 mb-4 bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full text-gray-200" preserveAspectRatio="none">
-                <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1" />
-                <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1" />
-              </svg>
-              <span className="font-mono text-xs text-gray-400 z-10 bg-white px-2 border border-gray-200">FIG 2.0</span>
+              <img src="/projects/raqameen.jpg" alt="Raqameen Agency Platform" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
             </div>
             <div className="flex justify-between items-end">
               <div>
-                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">Project Beta</h3>
-                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">Backend / API</p>
+                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">Raqameen</h3>
+                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">Next.js / Full-Stack</p>
               </div>
-              <span className="font-mono text-[10px] text-gray-400">SCALE 1:2</span>
+              
             </div>
           </motion.div>
 
           {/* Card 3 */}
           <motion.div
+            onMouseEnter={() => setHoveredProject(2)}
+            onMouseLeave={() => setHoveredProject(null)}
             style={{ x: card3X, y: '5%', willChange: 'transform', transform: 'translateZ(0)' }}
             className="absolute bottom-[20%] right-[5%] w-[300px] flex flex-col group cursor-pointer z-30 bg-white border border-gray-300 p-4 hover:border-gray-900 transition-colors duration-500 shadow-sm hover:shadow-xl"
           >
@@ -125,18 +188,15 @@ export default function WorkPanel() {
             <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-gray-500" />
 
             <div className="w-full h-[300px] relative overflow-hidden border border-gray-200 mb-4 bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full text-gray-200" preserveAspectRatio="none">
-                <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1" />
-                <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1" />
-              </svg>
-              <span className="font-mono text-xs text-gray-400 z-10 bg-white px-2 border border-gray-200">FIG 3.0</span>
+              <img src="/projects/rfid.jpg" alt="RFID Hardware Prototype" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+              
             </div>
             <div className="flex justify-between items-end">
               <div>
-                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">Project Gamma</h3>
-                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">Embedded Systems</p>
+                <h3 className="font-sans font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">RFID-Wallet</h3>
+                <p className="font-mono text-[10px] text-gray-400 mt-1 uppercase tracking-widest">ESP32 / C/C++</p>
               </div>
-              <span className="font-mono text-[10px] text-gray-400">SCALE 1:5</span>
+              
             </div>
           </motion.div>
         </div>
@@ -145,7 +205,7 @@ export default function WorkPanel() {
       {/* View More on GitHub Button (Unchanged) */}
       <div className="absolute top-32 right-12 md:top-40 md:right-24 z-50">
         <a 
-          href="https://github.com" 
+          href="https://github.com/Uoerim" 
           target="_blank" 
           rel="noopener noreferrer"
           className="group flex items-center gap-4 text-[#1a1a1a] hover:text-gray-500 transition-colors"

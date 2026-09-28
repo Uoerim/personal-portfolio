@@ -9,31 +9,24 @@ export default function ExperiencePanel() {
   const experiences = [
     {
       year: '2026',
-      period: '2026 - PRESENT',
-      role: 'FOUNDER & ENGINEER',
+      period: 'OCT 2025 - PRESENT',
+      role: 'FOUNDER & FULL-STACK DEV',
       company: 'RAQAMEEN',
-      desc: 'Building a leading software development agency. Crafting scalable platforms, mobile apps, and enterprise architecture for forward-thinking clients.'
+      desc: 'Running a technical agency programming custom full-stack software and Next.js web applications for clients. Managing database design and API development.'
     },
     {
-      year: '2023',
-      period: '2023 - 2026',
-      role: 'SENIOR FULL-STACK',
-      company: 'FREELANCE',
-      desc: 'Delivered high-performance web applications and embedded systems for global clients. Specialized in React, Python, AWS, and complex state management.'
+      year: '2025',
+      period: 'JUL 2025 - OCT 2025',
+      role: 'REACT NATIVE DEVELOPER',
+      company: 'THE DEVHOUSE',
+      desc: 'Programmed mobile UI features, interactive maps, and custom animations, working closely with designers to deploy responsive screens.'
     },
     {
-      year: '2021',
-      period: '2021 - 2023',
-      role: 'HARDWARE ENGINEER',
-      company: 'TECH INNOVATORS',
-      desc: 'Designed and programmed FPGA solutions and IoT devices. Bridged the gap between hardware precision and software logic.'
-    },
-    {
-      year: '2017',
-      period: '2017 - 2021',
-      role: 'COMPUTER ENGINEERING',
-      company: 'UNIVERSITY',
-      desc: 'Graduated with honors. Specialized in system architecture, microprocessors, and software engineering. Laid the foundation for deep technical work.'
+      year: '2022',
+      period: '2022 - EXPECTED MAY 2027',
+      role: 'B.SC. COMPUTER ENGINEERING',
+      company: 'AIN SHAMS UNIVERSITY',
+      desc: 'Specializing in Computer Engineering and Software Systems (CESS). Active in hardware prototyping and microcontroller programming.'
     }
   ];
 
@@ -118,24 +111,28 @@ export default function ExperiencePanel() {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="pointer-events-auto"
           >
-            <h1 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter text-[#1a1a1a] leading-none mb-2 md:mb-6 select-none drop-shadow-sm">
-              {experiences[activeIndex].year}
-            </h1>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-sans font-bold text-gray-800 mb-4 tracking-tight">
-              {experiences[activeIndex].role}
-            </h2>
-            <div className="flex items-center gap-4 mb-8">
-              <span className="font-mono text-sm md:text-base uppercase tracking-widest text-gray-500 font-semibold">
-                {experiences[activeIndex].company}
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
-              <span className="font-mono text-sm md:text-base uppercase tracking-widest text-gray-400">
-                {experiences[activeIndex].period}
-              </span>
-            </div>
-            <p className="text-base md:text-lg lg:text-xl text-gray-500 leading-relaxed max-w-2xl">
-              {experiences[activeIndex].desc}
-            </p>
+            {experiences[activeIndex] && (
+              <>
+                <h1 className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-sans font-black tracking-tighter text-[#1a1a1a] leading-none mb-2 md:mb-6 select-none drop-shadow-sm">
+                  {experiences[activeIndex].year}
+                </h1>
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-sans font-bold text-gray-800 mb-4 tracking-tight">
+                  {experiences[activeIndex].role}
+                </h2>
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="font-mono text-sm md:text-base uppercase tracking-widest text-gray-500 font-semibold">
+                    {experiences[activeIndex].company}
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                  <span className="font-mono text-sm md:text-base uppercase tracking-widest text-gray-400">
+                    {experiences[activeIndex].period}
+                  </span>
+                </div>
+                <p className="text-base md:text-lg lg:text-xl text-gray-500 leading-relaxed max-w-2xl">
+                  {experiences[activeIndex].desc}
+                </p>
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -143,23 +140,23 @@ export default function ExperiencePanel() {
       {/* PROMINENT NAVIGATION CONTROLS */}
       <div className="absolute bottom-12 right-12 md:bottom-16 md:right-24 flex gap-4 z-50 pointer-events-auto">
         <button 
-          onClick={handlePrev}
-          disabled={activeIndex === 0}
-          className="flex items-center gap-3 px-6 py-4 md:px-8 md:py-5 rounded-full bg-[#1a1a1a] text-white hover:bg-gray-800 transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform">
-            <path d="M12 19V5M5 12l7-7 7 7"/>
-          </svg>
-          <span className="font-mono text-sm tracking-widest font-bold">PREV</span>
-        </button>
-        <button 
-          onClick={handleNext}
+          onClick={handleNext} // Increases index (goes backward in time)
           disabled={activeIndex === experiences.length - 1}
           className="flex items-center gap-3 px-6 py-4 md:px-8 md:py-5 rounded-full bg-[#1a1a1a] text-white hover:bg-gray-800 transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
         >
-          <span className="font-mono text-sm tracking-widest font-bold">NEXT</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-1 transition-transform">
             <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+          <span className="font-mono text-sm tracking-widest font-bold">PREV YEAR</span>
+        </button>
+        <button 
+          onClick={handlePrev} // Decreases index (goes forward in time)
+          disabled={activeIndex === 0}
+          className="flex items-center gap-3 px-6 py-4 md:px-8 md:py-5 rounded-full bg-[#1a1a1a] text-white hover:bg-gray-800 transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
+        >
+          <span className="font-mono text-sm tracking-widest font-bold">NEXT YEAR</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
           </svg>
         </button>
       </div>

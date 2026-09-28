@@ -80,7 +80,9 @@ export default function YouTubePanel() {
 
           <div>
             <a 
-              href="#" 
+              href="https://www.youtube.com/@yosufmaib" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="group relative inline-flex items-center gap-3 bg-sky-400 border-[4px] border-black px-8 py-4 font-black text-xl uppercase text-black hover:bg-sky-300 transition-colors shadow-[6px_6px_0_black] hover:shadow-[3px_3px_0_black] hover:translate-y-[3px] hover:translate-x-[3px] active:shadow-none active:translate-y-[6px] active:translate-x-[6px]"
             >
               <span>Watch on YouTube</span>
