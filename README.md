@@ -9,24 +9,6 @@ Welcome to the source code repository for my personal portfolio. This project sh
 - **Animations**: Framer Motion
 - **Language**: TypeScript
 
-## Getting Started
-
-To run this project locally:
-
-1. Clone the repository
-2. Install dependencies using \
-pm install\
-3. Run the development server with \
-pm run dev\
-4. Open [http://localhost:3000](http://localhost:3000)
-
-## Creators
-
-- **Yosif Ibrahim** - *Design, Architecture, and Development*
-- **Google Deepmind Agent (Antigravity)** - *Development Assistance*
-
----
-
 **Created with ❤️ by Yosif Ibrahim**
 
 ## License
