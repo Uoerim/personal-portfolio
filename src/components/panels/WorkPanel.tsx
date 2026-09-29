@@ -97,17 +97,27 @@ export default function WorkPanel() {
       <div className="hidden md:block absolute top-[70%] left-0 w-full h-[1px] bg-gray-300 pointer-events-none" />
       <div className="hidden md:block absolute top-0 left-[20%] w-[1px] h-full bg-gray-300 pointer-events-none" />
 
-      {/* Title */}
-      <div className="relative md:absolute md:top-1/2 md:-translate-y-1/2 md:left-12 z-40 px-6 md:px-0 mb-8 md:mb-0 pt-8 md:pt-0">
-        <h2 className="font-sans font-black text-4xl md:text-6xl tracking-tighter uppercase text-[#1a1a1a] md:text-gray-900 pr-0 md:pr-12 bg-transparent md:bg-white inline-block border-transparent md:border-[2px] md:border-gray-900 p-0 md:p-4 shadow-none md:shadow-[8px_8px_0_rgba(0,0,0,1)]">
-          SELECTED WORK
-        </h2>
-        <div className="hidden md:block absolute -right-[16px] top-[10%] bottom-[10%] w-[1px] bg-gray-300">
-          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white py-4 text-gray-400 font-mono text-[10px] -rotate-90 whitespace-nowrap tracking-widest border border-gray-200">
-            SEC. 03 // PORTFOLIO
+              {/* Mobile Title */}
+        <div className="block md:hidden relative px-6 mb-8 pt-8 z-40">
+          <h2 className="font-sans font-black text-4xl tracking-tighter uppercase text-[#1a1a1a]">
+            SELECTED WORK
+          </h2>
+        </div>
+
+        {/* Desktop Title */}
+        <div className="hidden md:flex absolute left-8 md:left-12 top-0 h-full flex-col justify-center border-r border-gray-200 pr-4 z-0">
+          <h2 className="text-6xl md:text-8xl font-sans font-bold tracking-tighter text-[#1a1a1a]/10 -rotate-180" style={{ writingMode: 'vertical-rl' }}>
+            SELECTED WORK
+          </h2>
+          {/* Architectural dimension line */}
+          <div className="absolute -right-[16px] top-[10%] bottom-[10%] w-[1px] bg-gray-300">
+            <div className="absolute -left-1 top-0 w-3 h-[1px] bg-gray-400" />
+            <div className="absolute -left-1 bottom-0 w-3 h-[1px] bg-gray-400" />
+            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white py-4 text-gray-400 font-mono text-[10px] -rotate-90 whitespace-nowrap tracking-widest">
+              SEC. 03 // PORTFOLIO
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Container */}
       <div className="relative w-full max-w-7xl mx-auto md:absolute md:inset-0 md:flex md:items-center md:justify-center md:pt-20 md:pl-20 pointer-events-auto z-10 px-6 md:px-0">
@@ -184,5 +194,6 @@ export default function WorkPanel() {
     </section>
   );
 }
+
 
 
