@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, useTransform } from 'framer-motion';
 import { useScrollProgress, useIsMobile } from '@/components/HorizontalScroll';
@@ -31,9 +31,9 @@ export default function AboutPanel() {
       <div className="relative z-10 w-full h-full max-w-[90vw] mx-auto flex items-center">
         
         {/* Left Side Label */}
-        <div className="absolute top-12 left-0 md:top-1/2 md:-translate-y-1/2">
+                <div className="absolute top-12 left-0 md:top-1/2 md:-translate-y-1/2">
           <span className="font-mono text-xs tracking-widest text-gray-400">
-            ABOUT â€”
+            ABOUT &mdash;
           </span>
         </div>
 
@@ -55,6 +55,9 @@ export default function AboutPanel() {
     </section>
   );
 }
+
+
+
 
 
 
