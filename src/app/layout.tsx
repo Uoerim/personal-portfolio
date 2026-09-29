@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Inter, Space_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -7,7 +7,7 @@ const spaceMono = Space_Mono({ variable: '--font-space-mono', weight: ['400', '7
 
 export const metadata: Metadata = {
   title: 'Yosif Ibrahim',
-  description: 'Portfolio of a Computer Engineer.',
+  description: 'Portfolio of Yosif Ibrahim, a Computer Engineer and Full-Stack Developer specializing in React, Python, and scalable digital solutions.',
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -19,3 +19,4 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+
