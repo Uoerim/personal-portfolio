@@ -1,10 +1,10 @@
-'use client'
+﻿'use client'
 
 import { useRef, useEffect, useState, createContext, useContext, ReactNode } from 'react'
 import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion'
 
-/* ─── Context ─── */
-const Ctx = createContext<{ progress: MotionValue<number>; panelCount: number } | null>(null)
+/* "?"?"? Context "?"?"? */
+const Ctx = createContext<{ progress: MotionValue<number>; panelCount: number; isMobile: boolean } | null>(null)
 
 export function useScrollProgress() {
   const ctx = useContext(Ctx)
@@ -16,12 +16,23 @@ export function usePanelCount() {
   return useContext(Ctx)?.panelCount ?? 5
 }
 
-export function scrollToPanel(i: number, count: number) {
-  const max = document.documentElement.scrollHeight - window.innerHeight
-  window.scrollTo({ top: (i / (count - 1)) * max, behavior: 'smooth' })
+export function useIsMobile() {
+  return useContext(Ctx)?.isMobile ?? false
 }
 
-/* ─── Engine ─── */
+export function scrollToPanel(i: number, count: number) {
+  if (window.innerWidth < 768) {
+    const panels = Array.from(document.querySelectorAll('section')).filter(p => p.getBoundingClientRect().height > 0);
+    if (panels[i]) {
+      panels[i].scrollIntoView({ behavior: 'smooth' });
+    }
+  } else {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: (i / (count - 1)) * max, behavior: 'smooth' });
+  }
+}
+
+/* "?"?"? Engine "?"?"? */
 interface Props { children: ReactNode; overlay?: ReactNode; panelCount: number }
 
 export default function HorizontalScroll({ children, overlay, panelCount }: Props) {
@@ -29,10 +40,17 @@ export default function HorizontalScroll({ children, overlay, panelCount }: Prop
   const trackRef = useRef<HTMLDivElement>(null)
   const [dist, setDist] = useState(0)
   const [vh, setVh] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const measure = () => {
-      if (trackRef.current) setDist(trackRef.current.scrollWidth - window.innerWidth)
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile && trackRef.current) {
+        setDist(trackRef.current.scrollWidth - window.innerWidth)
+      } else {
+        setDist(0);
+      }
       setVh(window.innerHeight)
     }
     measure()
@@ -41,20 +59,20 @@ export default function HorizontalScroll({ children, overlay, panelCount }: Prop
     return () => window.removeEventListener('resize', measure)
   }, [children])
 
-  const { scrollYProgress } = useScroll({ target: wrapRef })
+  const { scrollYProgress } = useScroll()
 
-  // Spring‑smoothed transform for ULTRA buttery motion
-  // Low stiffness + high damping + higher mass = silky inertia glide
+  // Spring?smoothed transform for ULTRA buttery motion
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 40, mass: 0.8 })
   const x = useTransform(smoothProgress, [0, 1], [0, -dist])
 
-  const h = dist > 0 && vh > 0 ? `${dist + vh}px` : '100vh'
+  const h = !isMobile && dist > 0 && vh > 0 ? `${dist + vh}px` : 'auto'
 
   return (
-    <Ctx.Provider value={{ progress: smoothProgress, panelCount }}>
+    <Ctx.Provider value={{ progress: smoothProgress, panelCount, isMobile }}>
       {overlay}
-      <div ref={wrapRef} className="relative" style={{ height: h }}>
-        <div className="sticky top-0 left-0 h-screen w-screen overflow-hidden" style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}>
+      <div ref={wrapRef} className="relative w-full" style={{ height: h }}>
+        {/* Desktop View: Sticky Horizontal Scroll */}
+        <div className="hidden md:block sticky top-0 left-0 h-screen w-screen overflow-hidden" style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}>
           <motion.div
             ref={trackRef}
             style={{ x }}
@@ -63,7 +81,16 @@ export default function HorizontalScroll({ children, overlay, panelCount }: Prop
             {children}
           </motion.div>
         </div>
+        
+        {/* Mobile View: Vertical Stack */}
+        <div className="flex md:hidden flex-col w-full overflow-x-hidden">
+          {children}
+        </div>
       </div>
     </Ctx.Provider>
   )
 }
+
+
+
+

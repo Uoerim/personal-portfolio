@@ -1,10 +1,11 @@
-'use client';
+﻿'use client';
 
 import { motion, useTransform } from 'framer-motion';
-import { useScrollProgress } from '@/components/HorizontalScroll';
+import { useScrollProgress, useIsMobile } from '@/components/HorizontalScroll';
 
 export default function HeroPanel() {
   const progress = useScrollProgress();
+  const isMobile = useIsMobile();
   const bgX = useTransform(progress, [0, 0.25], ['0%', '50%']);
   const elementsX = useTransform(progress, [0, 0.25], ['0%', '100%']);
   
@@ -13,7 +14,7 @@ export default function HeroPanel() {
   const photoScale = useTransform(progress, [0, 0.25], [1, 1.05]);
 
   return (
-    <section className="min-w-[100vw] w-screen h-screen flex-shrink-0 relative overflow-hidden bg-white text-[#1a1a1a] flex flex-col justify-center items-center">
+    <section className="min-w-[100vw] w-screen min-h-[100svh] md:h-screen py-24 md:py-0 flex-shrink-0 relative overflow-hidden bg-white text-[#1a1a1a] flex flex-col justify-center items-center">
       
       {/* Background Soft Circle (Optimized: Replaced heavy blur filter with radial gradient) */}
       <motion.div 
@@ -48,7 +49,7 @@ export default function HeroPanel() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="font-sans font-black text-[5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-tighter text-[#1a1a1a] m-0 drop-shadow-sm"
+          className="font-sans font-black text-[3.5rem] xs:text-[4rem] sm:text-[7rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-tighter text-[#1a1a1a] m-0 drop-shadow-sm"
         >
           SOFTWARE
         </motion.h1>
@@ -56,7 +57,7 @@ export default function HeroPanel() {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="font-sans font-black text-[5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-tighter text-[#1a1a1a] m-0 drop-shadow-sm"
+          className="font-sans font-black text-[3.5rem] xs:text-[4rem] sm:text-[7rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] tracking-tighter text-[#1a1a1a] m-0 drop-shadow-sm"
         >
           CRAFTSMAN.
         </motion.h1>
@@ -73,3 +74,4 @@ export default function HeroPanel() {
     </section>
   );
 }
+
