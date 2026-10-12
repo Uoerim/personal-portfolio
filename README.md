@@ -28,8 +28,6 @@
 - [Sections Breakdown](#-sections-breakdown)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Deployment](#-deployment)
 - [Connect & Contact](#-connect--contact)
 - [License](#-license)
 
