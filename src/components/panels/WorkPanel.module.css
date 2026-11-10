@@ -1,0 +1,76 @@
+.panel {
+  --work-ink: #1a1a1a;
+  --work-muted: #62666d;
+  --work-border: #dedfe3;
+  --work-surface: #fff;
+  position: relative; flex-shrink: 0; width: 100vw; min-width: 100vw;
+  min-height: 100svh; overflow: hidden; background: var(--work-surface); color: var(--work-ink);
+}
+:global(body.dark-theme) .panel { --work-ink: #f3f3f5; --work-muted: #b2b4bd; --work-border: #303036; --work-surface: #121214; }
+.grid { position: absolute; inset: 0; pointer-events: none; opacity: .45; background-image: linear-gradient(to right, var(--work-border) 1px, transparent 1px), linear-gradient(to bottom, var(--work-border) 1px, transparent 1px); background-size: 100px 100px; }
+.rail { display: none; }
+.content { position: relative; z-index: 1; width: min(100%, 1600px); margin: auto; padding: 104px 24px 56px; }
+.header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; }
+.eyebrow { font-family: var(--font-space-mono), monospace; font-size: 10px; font-weight: 700; letter-spacing: .17em; margin-bottom: 12px; color: var(--work-muted); }
+.title { font-size: clamp(32px, 3.4vw, 56px); line-height: 1.02; font-weight: 900; letter-spacing: -.055em; }
+.intro { display: none; font-size: 12px; line-height: 1.6; color: var(--work-muted); }
+.projects { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.card { display: flex; min-width: 0; flex-direction: column; text-decoration: none; color: inherit; background: var(--work-surface); border: 1px solid var(--work-border); box-shadow: 0 10px 26px #00000008; transition: border-color .25s, box-shadow .25s; }
+.card:hover, .card:focus-visible { border-color: var(--work-ink); box-shadow: 0 14px 34px #00000014; }
+.card:focus-visible { outline: 2px solid var(--work-ink); outline-offset: 5px; }
+.browser { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 36px; padding: 0 12px; border-bottom: 1px solid var(--work-border); }
+.browserDots { display: flex; gap: 4px; flex-shrink: 0; }
+.browserDots i { width: 4px; height: 4px; border-radius: 50%; background: var(--work-muted); opacity: .45; }
+.domain { font-family: var(--font-space-mono), monospace; font-size: 9px; color: var(--work-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browserArrow { flex-shrink: 0; width: 11px; height: 11px; color: var(--work-muted); }
+.preview { position: relative; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--work-border); }
+.screenshot { object-fit: contain; object-position: top center; transition: transform .6s cubic-bezier(.25, 1, .5, 1); }
+.fillScreenshot { object-fit: cover; }
+.card:hover .screenshot, .card:focus-visible .screenshot { transform: scale(1.025); }
+.viewSite { position: absolute; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 14px; padding: 9px 12px; background: #fff; color: #171717; font-size: 11px; font-weight: 600; border: 1px solid #0000001a; opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.viewSite svg { width: 12px; height: 12px; }
+.card:hover .viewSite, .card:focus-visible .viewSite { opacity: 1; transform: translateY(0); }
+.details { padding: 22px; }
+.category { display: flex; align-items: center; gap: 12px; font-family: var(--font-space-mono), monospace; font-size: 9px; font-weight: 700; letter-spacing: .11em; color: var(--work-muted); }
+.projectTitle { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0; }
+.projectTitle h3 { font-size: 26px; font-weight: 800; letter-spacing: -.045em; line-height: 1.1; }
+.projectTitle > svg { width: 16px; height: 16px; }
+.description { font-size: 13px; line-height: 1.65; color: var(--work-muted); }
+.footer { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; margin-top: 30px; font-size: 11px; line-height: 1.6; color: var(--work-muted); }
+.footer a { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-space-mono), monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--work-ink); }
+.footer a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.footer svg { width: 13px; height: 13px; }
+@media (min-width: 768px) {
+  .panel { height: 100svh; }
+  .content { height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 100px 4vw 48px 15vw; }
+  .rail { position: absolute; left: 3vw; top: 12%; bottom: 10%; width: 6vw; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--work-border); }
+  .rail > span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: clamp(48px, 5.6vw, 88px); font-weight: 800; letter-spacing: -.065em; line-height: 1; opacity: .1; }
+  .rail small { position: absolute; right: -9px; top: 50%; writing-mode: vertical-rl; transform: translateY(-50%); background: var(--work-surface); padding: 18px 0; color: var(--work-muted); font-family: var(--font-space-mono), monospace; font-size: 8px; letter-spacing: .15em; }
+  .header { margin-bottom: 26px; }
+  .intro { display: block; }
+  .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 18px; }
+  .card:nth-child(2) { margin-top: 28px; }
+  .card:nth-child(3) { margin-top: 56px; }
+  .details { padding: 18px; }
+  .description { min-height: 86px; font-size: 12px; }
+  .footer { flex-direction: row; align-items: center; margin-top: 24px; }
+}
+@media (min-width: 1280px) {
+  .projects { gap: 24px; }
+  .details { padding: 22px; }
+  .description { min-height: 64px; font-size: 13px; }
+  .browser { min-height: 40px; }
+  .domain { font-size: 10px; }
+}
+@media (min-width: 768px) and (max-height: 740px) {
+  .content { padding-top: 90px; padding-bottom: 28px; }
+  .header { margin-bottom: 20px; }
+  .preview { aspect-ratio: 16 / 9; }
+  .details { padding: 15px 18px; }
+  .description { min-height: 60px; font-size: 12px; line-height: 1.5; }
+  .card:nth-child(2) { margin-top: 18px; }
+  .card:nth-child(3) { margin-top: 36px; }
+  .footer { margin-top: 18px; }
+}
+@media (hover: none) { .viewSite { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .screenshot, .viewSite, .card { transition: none; } .card:hover .screenshot, .card:focus-visible .screenshot { transform: none; } }
